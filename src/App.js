@@ -73,7 +73,9 @@ const App = () => {
 
 	return (
 		<div className="App">
+			<br/>
 			<div>
+				<div><b>Select dates</b></div>
 				<input type="date" id="start" name="transaction-start"
 				       onChange={(e) => setCalendarStart(e.target.value)}
 				       value={calendarStart}/>
@@ -126,8 +128,9 @@ const App = () => {
 						<div><b>Round amount: </b>{roundedAmount ? '£' + roundedAmount : ''}</div>
 						<button onClick={() => handleRound()}>
 							Round up
-						</button>
-						<button disabled={!selectedSaving} onClick={() => handleRoundedAmountTransfer()}>Transfer to Savings Goals
+						</button><br/>
+						<button disabled={!selectedSaving} onClick={() => handleRoundedAmountTransfer()}>
+							{selectedSaving ? `Transfer to '${selectedSaving.name}' Savings Goals` : 'Select Savings Goals'}
 						</button>
 					</div> : (accountList.length ? 'There are no transactions' : '')
 			}
