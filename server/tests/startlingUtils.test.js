@@ -14,7 +14,7 @@ it('test that app can get accounts', async done => {
 });
 
 describe('Test transactions', () => {
-	it('test that app can get transactions given an accountUid', async () => {
+	it('test that app can get transactions given an accountUid', async done => {
 		const response = await request.get('/api/v2/transactions')
 			.query({
 				accountUid,
@@ -23,6 +23,7 @@ describe('Test transactions', () => {
 				to: '2020-03-25T00:00:00.000Z'
 			});
 		expect(response.status).toBe(200);
+		done()
 	});
 
 	it('test that app throws 404 error when getting transactions without an accountUid', async done => {
@@ -33,18 +34,20 @@ describe('Test transactions', () => {
 });
 
 describe('Test savings goals', () => {
-	it('test that app can get savings goals given an accountUid', async () => {
+	it('test that app can get savings goals given an accountUid', async done => {
 		const response = await request.get('/api/v2/savings-goals')
 			.query({ accountUid });
 		expect(response.status).toBe(200);
+		done()
 	});
 
-	it('test that app throws 404 error when getting savings goals without an accountUid', async () => {
+	it('test that app throws 404 error when getting savings goals without an accountUid', async done => {
 		const response = await request.get('/api/v2/savings-goals');
 		expect(response.status).toBe(404);
+		done()
 	});
 
-	it('test that app can add amount to savings goals', async () => {
+	it('test that app can add amount to savings goals', async done => {
 		const params = {
 			amount: {
 				currency: "GBP",
@@ -59,5 +62,6 @@ describe('Test savings goals', () => {
 		expect(response.status).toBe(200);
 
 		await starlingUtils.withdrawMoneyToSavingsGoals(accountUid, savingsGoalUid, params)
+		done()
 	});
 });
